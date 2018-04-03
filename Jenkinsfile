@@ -45,7 +45,6 @@ node {
 
     def root_path = 'output'
     def rpm_root_path = "${root_path}/yum"
-    def rpm_packages_path = "${rpm_root_path}/Packages"
     def deb_path = "${root_path}/deb/packages"
 
     sh "mkdir -p ${rpm_packages_path} ${deb_path}"
@@ -58,7 +57,7 @@ node {
                 flatten: true,
                 projectName: "${projectName}",
                 selector: lastSuccessful(),
-                target: "${rpm_packages_path}"
+                target: "${rpm_root_path}"
             )
             copyArtifacts(
                     filter: "target/${name}-*.deb",
@@ -72,7 +71,7 @@ node {
 
     stage('repo') {
         docker.image('jcustenborder/packaging-centos-7:45').inside {
-            sh "createrepo ${rpm_packages_path}"
+            sh "createrepo ${rpm_root_path}"
         }
     }
 
@@ -80,7 +79,7 @@ node {
     stage('publish') {
         sshagent (credentials: ['eafaa2d0-dc8a-4bdc-9f0b-f6d290c9a6b5']) {
             withCredentials([string(credentialsId: 'package_ssh_hostname', variable: 'hostname')]) {
-                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${root_path}' '${hostname}:/var/lib/packages/jcustenborder/'"
+                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${root_path}/' '${hostname}:/var/lib/packages/jcustenborder/'"
             }
         }
     }
