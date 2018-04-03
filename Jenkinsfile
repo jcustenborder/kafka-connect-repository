@@ -53,10 +53,18 @@ node {
         connectors.each { name, projectName ->
             sh "echo Copying artifacts for ${projectName}"
             copyArtifacts(
+                filter: "target/${name}-*.rpm",
+                flatten: true,
+                projectName: "${projectName}",
+                selector: lastSuccessful(),
+                target: "${rpm_path}"
+            )
+            copyArtifacts(
+                    filter: "target/${name}-*.deb",
                     flatten: true,
                     projectName: "${projectName}",
                     selector: lastSuccessful(),
-                    target: 'foo'
+                    target: "${deb_path}"
             )
         }
     }
