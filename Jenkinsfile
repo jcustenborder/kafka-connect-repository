@@ -74,8 +74,8 @@ node {
     stage('publish') {
         sshagent (credentials: ['eafaa2d0-dc8a-4bdc-9f0b-f6d290c9a6b5']) {
             withCredentials([string(credentialsId: 'package_ssh_hostname', variable: 'hostname')]) {
-                sh "rsync -e ssh -avz --delete '${rpm_path}' '${hostname}/var/lib/packages/jcustenborder/rpm/'"
-                sh "rsync -e ssh -avz --delete '${deb_path}' '${hostname}/var/lib/packages/jcustenborder/deb/'"
+                sh "rsync -e ssh -avz --delete '${rpm_path}' '${hostname}:/var/lib/packages/jcustenborder/rpm/'"
+                sh "rsync -e ssh -avz --delete '${deb_path}' '${hostname}:/var/lib/packages/jcustenborder/deb/'"
             }
         }
     }
