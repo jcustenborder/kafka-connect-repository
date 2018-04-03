@@ -20,7 +20,7 @@ def connectors = [
         'kafka-connect-splunk':'jcustenborder/kafka-connect-splunk/master',
         'kafka-connect-spooldir':'jcustenborder/kafka-connect-spooldir/master',
         'kafka-connect-statsd':'jcustenborder/kafka-connect-statsd/master',
-        'kafka-connect-syslog':'jcustenborder/kafka-connect-syslog/master',
+        'kafka-connect-syslog':'jcustenborder/kafka-connect-syslog/issue-18',
         'kafka-connect-twitter':'jcustenborder/kafka-connect-twitter/master',
         'kafka-connect-vertica':'jcustenborder/kafka-connect-vertica/master',
 
