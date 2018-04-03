@@ -44,10 +44,10 @@ node {
     checkout scm
 
     def root_path = 'output'
-    def rpm_root_path = "${root_path}/yum"
-    def deb_path = "${root_path}/deb/packages"
+    def rpm_path = "${root_path}/yum"
+    def deb_path = "${root_path}/deb/"
 
-    sh "mkdir -p ${rpm_packages_path} ${deb_path}"
+    sh "mkdir -p ${rpm_path} ${deb_path}"
 
     stage('copy') {
         connectors.each { name, projectName ->
@@ -57,7 +57,7 @@ node {
                 flatten: true,
                 projectName: "${projectName}",
                 selector: lastSuccessful(),
-                target: "${rpm_root_path}"
+                target: "${rpm_path}"
             )
             copyArtifacts(
                     filter: "target/${name}-*.deb",
@@ -71,7 +71,7 @@ node {
 
     stage('repo') {
         docker.image('jcustenborder/packaging-centos-7:45').inside {
-            sh "createrepo ${rpm_root_path}"
+            sh "createrepo ${rpm_path}"
         }
     }
 
