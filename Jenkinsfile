@@ -43,11 +43,12 @@ node {
     deleteDir()
     checkout scm
 
+    def root_path = 'output'
+    def rpm_root_path = "${root_path}/yum"
+    def rpm_packages_path = "${rpm_root_path}/Packages"
+    def deb_path = "${root_path}/deb/packages"
 
-    def rpm_path = 'yum/packages'
-    def deb_path = 'deb/packages'
-
-    sh "mkdir -p ${rpm_path} ${deb_path}"
+    sh "mkdir -p ${rpm_packages_path} ${deb_path}"
 
     stage('copy') {
         connectors.each { name, projectName ->
@@ -57,7 +58,7 @@ node {
                 flatten: true,
                 projectName: "${projectName}",
                 selector: lastSuccessful(),
-                target: "${rpm_path}"
+                target: "${rpm_packages_path}"
             )
             copyArtifacts(
                     filter: "target/${name}-*.deb",
@@ -69,13 +70,15 @@ node {
         }
     }
 
+    stage('repo') {
+        sh "createrepo --basedir=${rpm_root_path} ${rpm_packages_path}"
+    }
 
 
     stage('publish') {
         sshagent (credentials: ['eafaa2d0-dc8a-4bdc-9f0b-f6d290c9a6b5']) {
             withCredentials([string(credentialsId: 'package_ssh_hostname', variable: 'hostname')]) {
-                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${rpm_path}' '${hostname}:/var/lib/packages/jcustenborder/rpm/'"
-                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${deb_path}' '${hostname}:/var/lib/packages/jcustenborder/deb/'"
+                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${root_path}' '${hostname}:/var/lib/packages/jcustenborder/'"
             }
         }
     }
