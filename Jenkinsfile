@@ -83,4 +83,25 @@ node {
             }
         }
     }
+
+    stage('deploy') {
+        sshagent (credentials: ['eafaa2d0-dc8a-4bdc-9f0b-f6d290c9a6b5']) {
+            def commands=[
+                    'yum clean all',
+                    "yum '--disablerepo=*' --enablerepo=jcustenborder install '*'",
+                    "yum '--disablerepo=*' --enablerepo=jcustenborder upgrade '*'"
+            ]
+
+            parallel 'connect-01': {
+                commands.each { command ->
+                    sh "ssh root@connect-01 ${command}"
+                }
+            }, 'connect-02': {
+                commands.each { command ->
+                    sh "ssh root@connect-02 ${command}"
+                }
+            }
+        }
+    }
+
 }
