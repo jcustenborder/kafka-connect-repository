@@ -71,7 +71,9 @@ node {
     }
 
     stage('repo') {
-        sh "createrepo --basedir=${rpm_root_path} ${rpm_packages_path}"
+        docker.image(images.jdk8_docker_image).inside {
+            sh "createrepo --basedir=${rpm_root_path} ${rpm_packages_path}"
+        }
     }
 
 
