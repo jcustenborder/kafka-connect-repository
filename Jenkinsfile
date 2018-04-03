@@ -94,11 +94,11 @@ node {
 
             parallel 'connect-01': {
                 commands.each { command ->
-                    sh "ssh root@connect-01 ${command}"
+                    sh "ssh -o StrictHostKeyChecking=no root@connect-01 ${command}"
                 }
             }, 'connect-02': {
                 commands.each { command ->
-                    sh "ssh root@connect-02 ${command}"
+                    sh "ssh -o StrictHostKeyChecking=no root@connect-02 ${command}"
                 }
             }
         }
