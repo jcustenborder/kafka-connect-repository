@@ -89,7 +89,9 @@ node {
             def commands=[
                     'yum clean all',
                     "yum '--disablerepo=*' --enablerepo=jcustenborder -y -q -e 0 install '*'",
-                    "yum '--disablerepo=*' --enablerepo=jcustenborder -y -q -e 0 upgrade '*'"
+                    "yum '--disablerepo=*' --enablerepo=jcustenborder -y -q -e 0 upgrade '*'",
+                    "systemctl restart connect-distributed",
+                    "systemctl restart connect-standalone"
             ]
 
             parallel 'connect-01': {
