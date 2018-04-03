@@ -88,8 +88,8 @@ node {
         sshagent (credentials: ['eafaa2d0-dc8a-4bdc-9f0b-f6d290c9a6b5']) {
             def commands=[
                     'yum clean all',
-                    "yum '--disablerepo=*' --enablerepo=jcustenborder install '*'",
-                    "yum '--disablerepo=*' --enablerepo=jcustenborder upgrade '*'"
+                    "yum '--disablerepo=*' --enablerepo=jcustenborder -y -q -e 0 install '*'",
+                    "yum '--disablerepo=*' --enablerepo=jcustenborder -y -q -e 0 upgrade '*'"
             ]
 
             parallel 'connect-01': {
