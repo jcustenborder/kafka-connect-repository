@@ -72,7 +72,7 @@ node {
 
     stage('repo') {
         docker.image('jcustenborder/packaging-centos-7:45').inside {
-            sh "createrepo --basedir=${rpm_root_path} ${rpm_packages_path}"
+            sh "createrepo ${rpm_packages_path}"
         }
     }
 
