@@ -79,7 +79,7 @@ node {
     stage('publish') {
         sshagent (credentials: ['eafaa2d0-dc8a-4bdc-9f0b-f6d290c9a6b5']) {
             withCredentials([string(credentialsId: 'package_ssh_hostname', variable: 'hostname')]) {
-                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${root_path}/' '${hostname}:/var/lib/packages/jcustenborder/'"
+                sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -avz --delete '${root_path}/' '${hostname}:/mnt/packages/jcustenborder/'"
             }
         }
     }
