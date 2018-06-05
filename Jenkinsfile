@@ -28,7 +28,9 @@ def connectors = [
         'kafka-connect-transform-cef':'jcustenborder/kafka-connect-transform-cef/master',
         'kafka-connect-transform-common':'jcustenborder/kafka-connect-transform-common/master',
         'kafka-connect-transform-maxmind':'jcustenborder/kafka-connect-transform-maxmind/master',
-        'kafka-connect-transform-xml':'jcustenborder/kafka-connect-transform-xml/master'
+        'kafka-connect-transform-xml':'jcustenborder/kafka-connect-transform-xml/master',
+        
+        'kafka-syslog':'jcustenborder/kafka-syslog/initial'
 ]
 
 properties([
