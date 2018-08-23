@@ -3,10 +3,8 @@
 def connectors = [
         'kafka-connect-flume-avro':'jcustenborder/kafka-connect-flume-avro/master',
         'kafka-connect-jmx':'jcustenborder/kafka-connect-jmx/master',
-        'kafka-connect-kinesis':'jcustenborder/kafka-connect-kinesis/master',
         'kafka-connect-memcached':'jcustenborder/kafka-connect-memcached/master',
         'kafka-connect-redis':'jcustenborder/kafka-connect-redis/master',
-        'kafka-connect-salesforce':'jcustenborder/kafka-connect-salesforce/master',
         'kafka-connect-simulator':'jcustenborder/kafka-connect-simulator/master',
         'kafka-connect-snmp':'jcustenborder/kafka-connect-snmp/master',
         'kafka-connect-solr':'jcustenborder/kafka-connect-solr/master',
