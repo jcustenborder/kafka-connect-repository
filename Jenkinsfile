@@ -20,7 +20,7 @@ def connectors = [
         'kafka-connect-transform-maxmind':'jcustenborder/kafka-connect-transform-maxmind/master',
         'kafka-connect-transform-xml':'jcustenborder/kafka-connect-transform-xml/master',
         
-        'kafka-syslog':'jcustenborder/kafka-syslog/initial'
+        'siem-proxy':'jcustenborder/siem-proxy/initial'
 ]
 
 properties([
